@@ -29,3 +29,17 @@ def test_get_latest_round_data():
 
     # Assert
     assert isinstance(result, dict)
+
+
+def test_get_historical_price():
+    # Arrange
+    network = 'KOVAN'
+    pair = 'ETH_USD'
+    round_id = 50
+    cf = ChainlinkFeeds()
+
+    # Act
+    result = cf.get_historical_price(round_id, network=network, pair=pair)
+
+    # Assert
+    assert isinstance(result, dict)

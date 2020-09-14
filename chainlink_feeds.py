@@ -54,10 +54,12 @@ class ChainlinkFeeds(object):
 
     @_output_formatter
     def get_latest_round_data(self, network='KOVAN', pair='ETH_USD'):
+        """Pairs that end with ETH have 18 0s. All other pairs only have 10.
+        We multiply them by 'bump' so they are all in wei before conversion.
+        """
         bump = 1
         if not pair.endswith('ETH'):
             bump = 10000000000
-        print(bump)
         address = self.addresses_config[network.upper()][pair]
         abi = self.abis_config['DEFAULT']['AGGREGATORV3INTERFACEABI']
         price_feed_contract = self.web3.eth.contract(address=address, abi=abi)
@@ -66,5 +68,24 @@ class ChainlinkFeeds(object):
                        'started_at': latest_data[2], 'time_stamp': latest_data[3], 'answered_in_round': latest_data[4]}
         return result_dict
 
+    @_output_formatter
+    def get_historical_price(self, round_id, network='KOVAN', pair='ETH_USD'):
+        """Pairs that end with ETH have 18 0s. All other pairs only have 10.
+        We multiply them by 'bump' so they are all in wei before conversion.
+        """
+        bump = 1
+        if not pair.endswith('ETH'):
+            bump = 10000000000
+        address = self.addresses_config[network.upper()][pair]
+        abi = self.abis_config['DEFAULT']['AGGREGATORV3INTERFACEABI']
+        price_feed_contract = self.web3.eth.contract(address=address, abi=abi)
+        latest_data = price_feed_contract.functions.getRoundData(
+            round_id).call()
+        result_dict = {'round_id': latest_data[0], 'price': latest_data[1] * bump,
+                       'started_at': latest_data[2], 'time_stamp': latest_data[3], 'answered_in_round': latest_data[4]}
+        print(result_dict)
+        return result_dict
 
-print(ChainlinkFeeds().get_latest_round_data(pair='ETH_USD'))
+
+cf = ChainlinkFeeds()
+cf.get_historical_price('1')
