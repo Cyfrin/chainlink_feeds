@@ -10,7 +10,7 @@ Install:
 pip install chainlink_feeds
 ```
 
-You'll need a `MNEMONIC` and `RPC_URL` environment variable.
+You'll need an `RPC_URL` environment variable.
 
 ```
 from chainlink_feeds import ChainlinkFeeds
