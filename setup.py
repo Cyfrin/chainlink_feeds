@@ -10,13 +10,13 @@ long_description = readme.read()
 setup(
     # How you named your package folder (MyLib)  # Chose the same as "name"
     name='chainlink_feeds',
-    version='0.2.1',      # Start with a small number and increase it with every change you make
+    version='0.2.2',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='MIT',
     # Give a short description about your library
     description=short_description,
     long_description=long_description,
-    long_description_content_type="text/markdown"
+    long_description_content_type="text/markdown",
     author='Patrick Collins',                   # Type in your name
     author_email='patrick@alphachain.io',      # Type in your E-Mail
     # Provide either the link to your github or to your website
