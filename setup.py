@@ -16,6 +16,7 @@ setup(
     # Give a short description about your library
     description=short_description,
     long_description=long_description,
+    long_description_content_type="text/markdown"
     author='Patrick Collins',                   # Type in your name
     author_email='patrick@alphachain.io',      # Type in your E-Mail
     # Provide either the link to your github or to your website
