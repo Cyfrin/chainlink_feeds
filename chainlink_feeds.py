@@ -4,6 +4,7 @@ import configparser
 import logging as log
 from functools import wraps
 from datetime import datetime
+import json
 log.basicConfig(level=log.INFO)
 
 
@@ -42,11 +43,11 @@ class ChainlinkFeeds(object):
             raise ValueError(
                 'No value RPC_URL provided. Please set environment variable RPC_URL, provide an rpc_url as a keyword argument, or set your own environment variable name with rpc_env_var.')
         self.abis_config = configparser.ConfigParser()
-        self.abis_config.read(os.path.join(
-            os.path.dirname(__file__), 'config', 'abis.cfg'))
         self.addresses_config = configparser.ConfigParser()
-        self.addresses_config.read(
-            os.path.join(os.path.dirname(__file__), 'config', 'addresses.cfg'))
+        self.load_config(os.path.join(os.path.dirname(
+            __file__), 'config', 'addresses.cfg'), abi_or_address='address')
+        self.load_config(os.path.join(os.path.dirname(
+            __file__), 'config', 'abis.cfg'), abi_or_address='abi')
         self.web3 = Web3(Web3.HTTPProvider(rpc_url))
         self.proxy = proxy or {}
         self.output_format = output_format
@@ -54,15 +55,17 @@ class ChainlinkFeeds(object):
         self.time = time
 
     @_output_formatter
-    def get_latest_round_data(self, network='KOVAN', pair='ETH_USD'):
+    def get_latest_round_data(self, network='kovan', pair='eth_usd', address=None, abi=None):
         """Pairs that end with ETH have 18 0s. All other pairs only have 10.
         We multiply them by 'bump' so they are all in wei before conversion.
         """
         bump = 1
         if not pair.endswith('ETH'):
             bump = 10000000000
-        address = self.addresses_config[network.upper()][pair]
-        abi = self.abis_config['DEFAULT']['AGGREGATORV3INTERFACEABI']
+        if address is None:
+            address = self.addresses_config[network.lower()][pair]
+        if abi is None:
+            abi = self.abis_config['default']['aggregatorv3interfaceabi']
         price_feed_contract = self.web3.eth.contract(address=address, abi=abi)
         latest_data = price_feed_contract.functions.latestRoundData().call()
         result_dict = {'round_id': latest_data[0], 'price': latest_data[1] * bump,
@@ -70,19 +73,35 @@ class ChainlinkFeeds(object):
         return result_dict
 
     @_output_formatter
-    def get_historical_price(self, round_id, network='KOVAN', pair='ETH_USD'):
+    def get_historical_price(self, round_id, network='kovan', pair='eth_usd', address=None, abi=None):
         """Pairs that end with ETH have 18 0s. All other pairs only have 10.
         We multiply them by 'bump' so they are all in wei before conversion.
         """
         bump = 1
-        if not pair.endswith('ETH'):
+        if not pair.endswith('eth'):
             bump = 10000000000
-        address = self.addresses_config[network.upper()][pair]
-        abi = self.abis_config['DEFAULT']['AGGREGATORV3INTERFACEABI']
+        if address is None:
+            address = self.addresses_config[network.lower()][pair]
+        if abi is None:
+            abi = self.abis_config['default']['aggregatorv3interfaceabi']
         price_feed_contract = self.web3.eth.contract(address=address, abi=abi)
         latest_data = price_feed_contract.functions.getRoundData(
             round_id).call()
         result_dict = {'round_id': latest_data[0], 'price': latest_data[1] * bump,
                        'started_at': latest_data[2], 'time_stamp': latest_data[3], 'answered_in_round': latest_data[4]}
-        log.info(result_dict)
         return result_dict
+
+    def load_config(self, config_path, abi_or_address='abi'):
+        if abi_or_address.lower() == 'abi':
+            self.abis_config.read(config_path)
+        else:
+            self.addresses_config.read(config_path)
+
+    def get_addresses(self):
+        return json.loads(json.dumps(self.addresses_config._sections))
+
+    def get_abis(self):
+        return json.loads(json.dumps(self.abis_config._sections))
+
+    def get_historical_prices():
+        pass
