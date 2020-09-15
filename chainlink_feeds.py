@@ -1,7 +1,6 @@
 import os
 from web3 import Web3
 import configparser
-import requests
 import logging as log
 from functools import wraps
 from datetime import datetime
@@ -26,6 +25,8 @@ def _output_formatter(func):
 class ChainlinkFeeds(object):
     """ Base class where the decorators and base function for the other
     classes of this python wrapper will inherit from.
+
+    TODO: Add The Graph for historical
     """
 
     def __init__(self, rpc_url=None, output_format='json', proxy=None, rpc_env_var='RPC_URL', conversion='ether', time='%Y-%m-%d %H:%M:%S'):
@@ -83,9 +84,5 @@ class ChainlinkFeeds(object):
             round_id).call()
         result_dict = {'round_id': latest_data[0], 'price': latest_data[1] * bump,
                        'started_at': latest_data[2], 'time_stamp': latest_data[3], 'answered_in_round': latest_data[4]}
-        print(result_dict)
+        log.info(result_dict)
         return result_dict
-
-
-cf = ChainlinkFeeds()
-cf.get_historical_price('1')

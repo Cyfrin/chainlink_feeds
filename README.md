@@ -4,6 +4,14 @@ A way to pull data from the Chainlink Price Feeds for analytics, algorithmic tra
 
 # Quickstart
 
+Install:
+
+```
+pip install chainlink_feeds
+```
+
+You'll need a `MNEMONIC` and `RPC_URL` environment variable.
+
 ```
 from chainlink_feeds import ChainlinkFeeds
 
