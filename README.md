@@ -15,6 +15,6 @@ You'll need an `RPC_URL` environment variable.
 ```
 from chainlink_feeds import ChainlinkFeeds
 
-cf = ChainlinkFeeds(network='KOVAN', pari='ETH_USD')
-print(cf.get_latest_round_data(network=network, pair=pair))
+cf = ChainlinkFeeds()
+print(cf.get_latest_round_data(network='KOVAN', pair='ETH_USD'))
 ```
