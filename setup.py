@@ -1,11 +1,11 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 from os import path
 
 here = path.abspath(path.dirname(__file__))
 short_description = 'Python module to get price and other data from the decentralized chainlink community resources'
-readme = open("README.md")
-long_description = readme.read()
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(
     # How you named your package folder (MyLib)  # Chose the same as "name"
