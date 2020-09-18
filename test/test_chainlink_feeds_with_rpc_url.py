@@ -17,24 +17,24 @@ def get_test_address():
     return '0x9326BFA02ADD2366b30bacB125260Af641031331'
 
 
-def test_rpc_url_not_present():
-    # Arrange
-    rpc_url = os.getenv('RPC_URL')
-    del os.environ['RPC_URL']
+# def test_rpc_url_not_present():
+#     # Arrange
+#     rpc_url = os.getenv('RPC_URL')
+#     del os.environ['RPC_URL']
 
-    # Act / Assert
-    with pytest.raises(ValueError):
-        ChainlinkFeeds()
+#     # Act / Assert
+#     with pytest.raises(ValueError):
+#         ChainlinkFeeds()
 
-    # reset
-    os.environ['RPC_URL'] = rpc_url
+#     # reset
+#     os.environ['RPC_URL'] = rpc_url
 
 
 def test_get_latest_round_data():
     # Arrange
     network = 'kovan'
     pair = 'eth_usd'
-    cf = ChainlinkFeeds()
+    cf = ChainlinkFeeds(rpc_env_var='RPC_URL')
 
     # Act
     result = cf.get_latest_round_data(network=network, pair=pair)
@@ -48,7 +48,7 @@ def test_get_latest_round_data_with_abi_and_address(get_test_abi, get_test_addre
     network = 'kovan'
     abi = get_test_abi
     address = get_test_address
-    cf = ChainlinkFeeds()
+    cf = ChainlinkFeeds(rpc_env_var='RPC_URL')
 
     # Act
     result = cf.get_latest_round_data(
@@ -63,7 +63,7 @@ def test_get_historical_price():
     network = 'kovan'
     pair = 'eth_usd'
     round_id = 18446744073709556747
-    cf = ChainlinkFeeds()
+    cf = ChainlinkFeeds(rpc_env_var='RPC_URL')
 
     # Act
     result = cf.get_historical_price(round_id, network=network, pair=pair)
@@ -74,12 +74,12 @@ def test_get_historical_price():
 
 def test_load_config():
     # Arrange
-    cf = ChainlinkFeeds()
+    cf = ChainlinkFeeds(rpc_env_var='RPC_URL')
 
     # Act
     cf.load_config('./test/test_data/test_addresses_data.cfg',
                    abi_or_address='address')
 
     # Assert
-    assert cf.get_addresses(
+    assert cf.get_manual_addresses(
     )['mainnet']['test_test'] == '0x0000000000000000000000000000000000000000'
