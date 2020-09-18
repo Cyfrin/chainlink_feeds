@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 setup(
     # How you named your package folder (MyLib)  # Chose the same as "name"
     name='chainlink_feeds',
-    version='0.2.2',      # Start with a small number and increase it with every change you make
+    version='0.2.3',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='MIT',
     # Give a short description about your library
@@ -26,10 +26,14 @@ setup(
               'cryptocurrency', 'blockchain'],
     install_requires=[            # I get to this in a second
         'configparser',
+        'pandas',
+        'web3'
     ],
     test_requires=[
         'pytest',
         'configparser'
+        'pandas',
+        'web3'
     ],
     classifiers=[
         # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
@@ -38,9 +42,6 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8'
