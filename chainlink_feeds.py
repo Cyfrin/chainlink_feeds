@@ -110,25 +110,25 @@ class ChainlinkFeeds(object):
                     assetPair
                     }}
                 }}""".format(pair=pair, number_of_results=number_of_results)
-        return self.graphql_query(query, column='prices')
+        return self.graphql_query(query, column='prices', set_index='timestamp')
 
     def get_hourly_candle(self, pair='eth_usd', number_of_results=1000):
         pair = ChainlinkFeeds.convert_pair_format(pair)
         query = ChainlinkFeeds.get_candle_query(
             pair, number_of_results, 'hourlyCandles')
-        return self.graphql_query(query, column='hourlyCandles')
+        return self.graphql_query(query, column='hourlyCandles', set_index='openTimestamp')
 
     def get_daily_candle(self, pair='eth_usd', number_of_results=1000):
         pair = ChainlinkFeeds.convert_pair_format(pair)
         query = ChainlinkFeeds.get_candle_query(
             pair, number_of_results, 'dailyCandles')
-        return self.graphql_query(query, column='dailyCandles')
+        return self.graphql_query(query, column='dailyCandles', set_index='openTimestamp')
 
     def get_weekly_candle(self, pair='eth_usd', number_of_results='1000'):
         pair = ChainlinkFeeds.convert_pair_format(pair)
         query = ChainlinkFeeds.get_candle_query(
             pair, number_of_results, 'weeklyCandles')
-        return self.graphql_query(query, column='weeklyCandles')
+        return self.graphql_query(query, column='weeklyCandles', set_index='openTimestamp')
 
     @staticmethod
     def get_candle_query(pair, number_of_results, endpoint):
@@ -145,11 +145,11 @@ class ChainlinkFeeds(object):
                 }}
                 }}""".format(pair=pair, number_of_results=number_of_results, endpoint=endpoint)
 
-    def graphql_query(self, query, column=None):
+    def graphql_query(self, query, column=None, set_index=None):
         response = requests.post(self.base_url, json={'query': query})
-        return self._handle_output(json.loads(response.text), column=column)
+        return self._handle_output(json.loads(response.text), column=column, set_index=set_index)
 
-    def _handle_output(self, response, column=None, set_index='timestamp'):
+    def _handle_output(self, response, column=None, set_index=None):
         if self.output_format == 'pandas':
             if column:
                 df = pd.DataFrame(response['data'][column])
