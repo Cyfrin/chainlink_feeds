@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/chainlink-feeds.svg)](https://badge.fury.io/py/chainlink-feeds.svg)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AlphaChainio/chainlink_feeds.svg)](http://isitmaintained.com/project/AlphaChainio/chainlink_feeds "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/AlphaChainio/chainlink_feeds.svg)](http://isitmaintained.com/project/AlphaChainio/chainlink_feeds "Percentage of issues still open")
-[![Actions Status](https://github.com/AlphaChainio/chainlink_feeds/workflows/chainlink_feeds/badge.svg)](https://github.com/workflows/chainlink_feeds/actions)
+[![Actions Status](https://github.com/AlphaChainio/chainlink_feeds/workflows/chainlink_feeds/badge.svg)](https://github.com/alphachainio/chainlink_feeds/actions?query=workflow%3Achainlink_feeds)
 
 A way to pull data from the Chainlink Price Feeds for analytics, algorithmic trading models, or else.
 
