@@ -34,7 +34,8 @@ class ChainlinkFeeds(object):
     TODO: Add The Graph for historical
     """
 
-    def __init__(self, rpc_url=None, output_format='json', proxy=None, rpc_env_var=None, conversion='ether', time='%Y-%m-%d %H:%M:%S'):
+    def __init__(self, rpc_url=None, output_format='json', proxy=None, rpc_env_var=None, conversion='ether',
+                 time='%Y-%m-%d %H:%M:%S'):
         """ Initialize the class
         Keyword Arguments:
             key:  rpc_url: The Ethereum Client node. This can be from node hosting services like infura, fiews, or quiknode.
@@ -49,7 +50,9 @@ class ChainlinkFeeds(object):
                 self.rpc_url = os.getenv(rpc_env_var)
             if not self.rpc_url or not isinstance(self.rpc_url, str):
                 raise ValueError(
-                    'No value RPC_URL provided. Please set environment variable RPC_URL, provide an rpc_url as a keyword argument, or set your own environment variable name with rpc_env_var.')
+                    'No value RPC_URL provided. Please set environment variable RPC_URL, ',
+                    'provide an rpc_url as a keyword argument, or set your own environment',
+                    ' variable name with rpc_env_var.')
             else:
                 log.info(
                     'You have chosen the RPC_URL. You will only be able to get specific historical data. ')
@@ -96,7 +99,8 @@ class ChainlinkFeeds(object):
         # TODO round_id
         pair = ChainlinkFeeds.convert_pair_format(pair)
         query = """{{
-                    prices(where: {{assetPair:"{pair}"}}, orderBy: timestamp, orderDirection:desc, first: {number_of_results}) {{
+                    prices(where: {{assetPair:"{pair}"}}, orderBy: timestamp,
+                        orderDirection:desc, first: {number_of_results}) {{
                     id
                     price
                     timestamp

@@ -1,6 +1,5 @@
 # content of conftest.py
 import pytest
-import os
 import logging as log
 import pandas as pd
 
