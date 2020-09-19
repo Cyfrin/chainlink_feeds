@@ -108,7 +108,7 @@ from chainlink_feeds import ChainlinkFeeds
 cf = ChainlinkFeeds(rpc_url = "https://www.infura.com/asdfasdfasdfas)
 ```
 
-And query the blockchain directly:
+And query the blockchain directly. You do need to know the address and the ABI of the pair. For reference, you can check the `config` folder in this repo. You can also `load_config` with your own config with addresses or ABIs.:
 
 ```
 print(cf.get_latest_round_data(network='KOVAN', pair='ETH_USD'))
