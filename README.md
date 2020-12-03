@@ -14,8 +14,7 @@ This repo uses either an RPC_URL or the [Chainlink Subgraph](https://thegraph.co
 Install:
 
 ```
-git clone https://github.com/alphachainio/chainlink_feeds
-pip install -e chainlink_feeds
+pip install chainlink_feeds
 ```
 
 # Using the Chainlink subgraph
