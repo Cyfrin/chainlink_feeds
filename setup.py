@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 setup(
     # How you named your package folder (MyLib)  # Chose the same as "name"
     name='chainlink_feeds',
-    version='0.2.5',      # Start with a small number and increase it with every change you make
+    version='0.2.6',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='MIT',
     # Give a short description about your library
@@ -48,7 +48,7 @@ setup(
     ],
     packages=find_packages(
         exclude=['test_chainlink_feeds', 'workflows', 'images']),
-    package_data={
-        'chainlink_feeds': [],
-    }
+    # package_data={
+    #     'chainlink_feeds': [],
+    # }
 )

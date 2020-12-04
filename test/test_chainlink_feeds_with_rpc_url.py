@@ -2,7 +2,7 @@
 import pytest
 import logging as log
 
-from ..chainlink_feeds import ChainlinkFeeds
+from src.chainlink_feeds import ChainlinkFeeds
 log.basicConfig(level=log.INFO)
 
 
