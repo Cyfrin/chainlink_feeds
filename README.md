@@ -22,7 +22,7 @@ pip install chainlink_feeds
 When you don't specify an RPC_URL, you automatically use the Chainlink subgraph.
 
 ```
-from chainlink_feeds import ChainlinkFeeds
+from chainlink_feeds.chainlink_feeds import ChainlinkFeeds
 
 cf = ChainlinkFeeds()
 print(cf.get_latest_round_data(pair='ETH_USD'))
@@ -75,7 +75,7 @@ openTimestamp
 You can then run some analytics on it:
 
 ```
-from chainlink_feeds import ChainlinkFeeds
+from chainlink_feeds.chainlink_feeds import ChainlinkFeeds
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -103,7 +103,7 @@ You can check out some methods on the [Chainlink subgraph](https://thegraph.com/
 Otherwise you can specify an RPC_URL and query the blockchain yourself.
 
 ```
-from chainlink_feeds import ChainlinkFeeds
+from chainlink_feeds.chainlink_feeds import ChainlinkFeeds
 
 cf = ChainlinkFeeds(rpc_url = "https://www.infura.com/asdfasdfasdfas)
 ```
