@@ -2,7 +2,7 @@
 
 # ATTENTION
 
-The subgraph used for this is no longer active. This package is mainly defunct due to this. 
+## The subgraph used for this is no longer active. This package is mainly defunct due to this. 
 
 [![PyPI version](https://badge.fury.io/py/chainlink-feeds.svg)](https://badge.fury.io/py/chainlink-feeds.svg)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AlphaChainio/chainlink_feeds.svg)](http://isitmaintained.com/project/AlphaChainio/chainlink_feeds "Average time to resolve an issue")
